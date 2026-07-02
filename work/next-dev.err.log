@@ -1,0 +1,93 @@
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <HomePage>
+                  <div className="bg-zinc-50">
+                    <section className="mx-auto ma...">
+                      <div className="mx-auto ma...">
+                        <p>
+                        <h1>
+                        <p>
+                        <div className="mt-10">
+                          <MasterSearch>
+                            <form onSubmit={function handleSubmit} className="mx-auto w-...">
+                              <label className="relative b...">
+                                <span>
+                                <Search>
+                                <input
+                                  value=""
+                                  onChange={function onChange}
+                                  placeholder="Search BEE solutions, Arduino projects, ESP32 kits..."
+                                  className="h-16 w-full rounded-lg border border-zinc-300 bg-white pl-14 pr-4 text-ba..."
+-                                 fdprocessedid="usr6p5"
+                                >
+                      ...
+                    ...
+              ...
+            ...
+ 
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <HomePage>
+                  <div className="bg-zinc-50">
+                    <section className="mx-auto ma...">
+                      <div className="mx-auto ma...">
+                        <p>
+                        <h1>
+                        <p>
+                        <div className="mt-10">
+                          <MasterSearch>
+                            <form onSubmit={function handleSubmit} className="mx-auto w-...">
+                              <label className="relative b...">
+                                <span>
+                                <Search>
+                                <input
+                                  value=""
+                                  onChange={function onChange}
+                                  placeholder="Search BEE solutions, Arduino projects, ESP32 kits..."
+                                  className="h-16 w-full rounded-lg border border-zinc-300 bg-white pl-14 pr-4 text-ba..."
+-                                 fdprocessedid="d3gspz"
+                                >
+                      ...
+                    ...
+              ...
+            ...
+ 
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior

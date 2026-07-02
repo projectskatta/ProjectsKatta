@@ -1,0 +1,65 @@
+import Image from "next/image";
+import Link from "next/link";
+import {
+  BookOpenText,
+  Gamepad2,
+  GraduationCap,
+  LayoutDashboard,
+  Package,
+  Rocket,
+  Store
+} from "lucide-react";
+
+const navItems = [
+  { href: "/", label: "Home", icon: GraduationCap },
+  { href: "/education", label: "Education", icon: BookOpenText },
+  { href: "/projects", label: "Projects", icon: Rocket },
+  { href: "/store", label: "Store", icon: Store },
+  { href: "/games", label: "Games", icon: Gamepad2 },
+  { href: "/dashboard", label: "Dashboard", icon: Package },
+  { href: "/admin-katta", label: "Admin", icon: LayoutDashboard }
+];
+
+export function Navbar() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/pk_logo.png"
+            alt="ProjectsKatta logo"
+            width={44}
+            height={44}
+            className="h-11 w-11 rounded-lg border border-zinc-200 object-cover"
+            priority
+          />
+          <span className="leading-tight">
+            <span className="block text-base font-black tracking-tight text-zinc-950">
+              ProjectsKatta
+            </span>
+            <span className="hidden text-xs font-medium text-zinc-500 sm:block">
+              Notes, projects, kits
+            </span>
+          </span>
+        </Link>
+
+        <nav className="flex min-w-0 items-center gap-1 overflow-x-auto rounded-lg border border-zinc-200 bg-zinc-50 p-1">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex h-9 shrink-0 items-center gap-2 rounded-md px-3 text-sm font-semibold text-zinc-600 transition hover:bg-white hover:text-zinc-950 hover:shadow-sm"
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" />
+                <span className="hidden md:inline">{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </header>
+  );
+}
