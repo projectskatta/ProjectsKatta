@@ -44,5 +44,5 @@ export default function AboutPage() {
 
 
 //git add .
-//git commit -m "Add login button and login status to navbar"
+//git commit -m "Fixed image block in Next config"
 //git push
