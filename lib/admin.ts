@@ -2,7 +2,7 @@
 // Edit this list if an email needs to change.
 const ADMIN_EMAILS = [
   "harshsalunke.official@gmail.com",
-  "projectskattaofficial@ggmail.com"
+  "projectskattaofficial@gmail.com"
 ].map((email) => email.toLowerCase());
 
 export function isAdminEmail(email: string | null | undefined): boolean {
