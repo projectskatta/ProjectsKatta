@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { MessageCircle, PackageCheck } from "lucide-react";
+import { PackageCheck } from "lucide-react";
 import type { StoreKit } from "@/types/platform";
+import { BuyButton } from "@/components/buy-button";
 
 type StoreKitCardProps = {
   kit: StoreKit;
@@ -40,15 +40,12 @@ export function StoreKitCard({ kit }: StoreKitCardProps) {
             {kit.stockStatus ? "In stock" : "Preorder"}
           </span>
         </div>
-        <Link
-          href={`https://wa.me/?text=${encodeURIComponent(`I want to buy ${kit.title} from ProjectsKatta`)}`}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-4 text-sm font-black text-white transition hover:bg-zinc-700"
-        >
-          <MessageCircle className="h-4 w-4" aria-hidden="true" />
-          Buy via WhatsApp
-        </Link>
+        
+        {/* Yahan aaya tera naya Razorpay Gateway Button */}
+        <div className="mt-4">
+          <BuyButton amount={kit.sellingPrice} itemName={kit.title} />
+        </div>
+        
       </div>
     </article>
   );
