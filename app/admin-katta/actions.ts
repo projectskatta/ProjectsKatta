@@ -432,3 +432,282 @@ export async function publishGame(_previous: CommandState, formData: FormData): 
     return fail(error instanceof Error ? error.message : "Unable to publish game.");
   }
 }
+
+// ---------------------------------------------------------------------------
+// Manage: list / edit / delete existing content.
+// Lists use the ADMIN client (bypasses RLS) so the admin panel always shows
+// the true database state, even if a public-read policy is missing.
+// ---------------------------------------------------------------------------
+
+export async function listProjects() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("projects")
+    .select("id, project_slug, title, project_tier, category_tag, image_url, report_url, code_file_url, youtube_url, theory_content, bom_list, code_string, related_kit_slug, created_at")
+    .order("created_at", { ascending: false });
+
+  return data ?? [];
+}
+
+export async function listStoreKits() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("store_kits")
+    .select("id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, created_at")
+    .order("created_at", { ascending: false });
+
+  return data ?? [];
+}
+
+export async function listGames() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("games")
+    .select("id, slug, title, description, channel, youtube_url, thumbnail_url, game_file_url, source_code, source_code_file_url, created_at")
+    .order("created_at", { ascending: false });
+
+  return data ?? [];
+}
+
+export async function listEducationResources() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("resources")
+    .select("id, subject_name, category_type, file_title, file_url, exam_year, is_trending, created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  return data ?? [];
+}
+
+export async function deleteProject(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("projects").delete().eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/projects");
+  revalidatePath("/admin-katta");
+}
+
+export async function deleteStoreKit(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("store_kits").delete().eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/store");
+  revalidatePath("/admin-katta");
+}
+
+export async function deleteGame(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("games").delete().eq("id", id);
+  revalidatePath("/games");
+  revalidatePath("/admin-katta");
+}
+
+export async function deleteEducationResource(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("resources").delete().eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/education");
+  revalidatePath("/admin-katta");
+}
+
+export async function updateProject(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const id = read(formData, "id");
+  const title = read(formData, "title");
+
+  if (!id || !title || !read(formData, "youtube_url")) {
+    return fail("Missing project id, title, or YouTube URL.");
+  }
+
+  try {
+    const rawSlug = read(formData, "project_slug") || title;
+    const slug = slugify(rawSlug);
+
+    const imageUpload = await uploadFile(getFile(formData, "image_file"), `projects/${slug}/images`);
+    const reportUpload = await uploadFile(getFile(formData, "report_file"), `projects/${slug}/reports`);
+    const codeFile = getFile(formData, "code_file");
+    const codeUpload = await uploadFile(codeFile, `projects/${slug}/code`);
+    const codeString = codeFile ? await codeFile.text() : read(formData, "code_string");
+    const projectTier = read(formData, "project_tier") || "basic";
+
+    const supabase = createSupabaseAdminClient();
+    if (!supabase) {
+      return ok("Demo mode: update validated. Add Supabase env vars to save for real.");
+    }
+
+    const { error } = await supabase
+      .from("projects")
+      .update({
+        project_slug: slug,
+        title,
+        project_tier: projectTier,
+        category_tag: projectTier === "premium" ? "Premium" : read(formData, "category_tag"),
+        image_url: imageUpload?.url || read(formData, "existing_image_url") || "/images/hero-lab.png",
+        youtube_url: normalizeYoutubeUrl(read(formData, "youtube_url")),
+        theory_content: read(formData, "theory_content"),
+        bom_list: parseBom(read(formData, "bom_list")),
+        report_url: reportUpload?.url || read(formData, "existing_report_url") || "#",
+        code_string: codeString,
+        code_file_url: codeUpload?.url || read(formData, "existing_code_file_url") || null,
+        related_kit_slug: read(formData, "related_kit_slug") || null
+      })
+      .eq("id", id);
+
+    if (error) return fail(error.message);
+
+    revalidatePath("/");
+    revalidatePath("/projects");
+    revalidatePath(`/projects/${slug}`);
+    revalidatePath("/admin-katta");
+    return ok("Project updated successfully.");
+  } catch (error) {
+    return fail(error instanceof Error ? error.message : "Unable to update project.");
+  }
+}
+
+export async function updateStoreKit(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const id = read(formData, "id");
+  const title = read(formData, "title");
+
+  if (!id || !title || !read(formData, "selling_price")) {
+    return fail("Missing kit id, title, or selling price.");
+  }
+
+  try {
+    const rawSlug = read(formData, "product_slug") || title;
+    const slug = slugify(rawSlug);
+
+    const imageUpload = await uploadFile(getFile(formData, "image_file"), `store/${slug}`);
+    const gallery = parseLines(read(formData, "image_gallery"));
+    const existingGallery = parseLines(read(formData, "existing_image_gallery"));
+    const finalGallery = imageUpload?.url ? [imageUpload.url, ...gallery] : gallery.length ? gallery : existingGallery;
+
+    const supabase = createSupabaseAdminClient();
+    if (!supabase) {
+      return ok("Demo mode: update validated. Add Supabase env vars to save for real.");
+    }
+
+    const { error } = await supabase
+      .from("store_kits")
+      .update({
+        product_slug: slug,
+        title,
+        category: read(formData, "category"),
+        summary: read(formData, "summary"),
+        mrp: readNumber(formData, "mrp"),
+        selling_price: readNumber(formData, "selling_price"),
+        stock_status: formData.get("stock_status") === "on",
+        image_gallery: finalGallery,
+        technical_specs: parseSpecs(read(formData, "technical_specs"))
+      })
+      .eq("id", id);
+
+    if (error) return fail(error.message);
+
+    revalidatePath("/");
+    revalidatePath("/store");
+    revalidatePath("/admin-katta");
+    return ok("Kit updated successfully.");
+  } catch (error) {
+    return fail(error instanceof Error ? error.message : "Unable to update kit.");
+  }
+}
+
+export async function updateGame(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const id = read(formData, "id");
+  const title = read(formData, "title");
+
+  if (!id || !title || !read(formData, "youtube_url")) {
+    return fail("Missing game id, title, or YouTube URL.");
+  }
+
+  try {
+    const rawSlug = read(formData, "slug") || title;
+    const slug = slugify(rawSlug);
+
+    const gameUpload = await uploadFile(getFile(formData, "html_file"), `games/${slug}`);
+    const thumbnailUpload = await uploadFile(getFile(formData, "thumbnail_file"), `games/${slug}/thumb`);
+    const sourceFile = getFile(formData, "source_code_file");
+    const sourceUpload = await uploadFile(sourceFile, `games/${slug}/source`);
+    const sourceCode = sourceFile ? await sourceFile.text() : read(formData, "source_code");
+    const youtubeUrl = normalizeYoutubeUrl(read(formData, "youtube_url"));
+
+    const supabase = createSupabaseAdminClient();
+    if (!supabase) {
+      return ok("Demo mode: update validated. Add Supabase env vars to save for real.");
+    }
+
+    const { error } = await supabase
+      .from("games")
+      .update({
+        slug,
+        title,
+        description: read(formData, "description"),
+        channel: read(formData, "channel"),
+        youtube_url: youtubeUrl,
+        promo_video_id: getYoutubeId(youtubeUrl),
+        game_file_url: gameUpload?.url || read(formData, "existing_game_file_url") || null,
+        thumbnail_url: thumbnailUpload?.url || read(formData, "existing_thumbnail_url") || null,
+        source_code: sourceCode,
+        source_code_file_url: sourceUpload?.url || read(formData, "existing_source_code_file_url") || null
+      })
+      .eq("id", id);
+
+    if (error) return fail(error.message);
+
+    revalidatePath("/games");
+    revalidatePath("/admin-katta");
+    return ok("Game updated successfully.");
+  } catch (error) {
+    return fail(error instanceof Error ? error.message : "Unable to update game.");
+  }
+}
