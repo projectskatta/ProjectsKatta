@@ -41,3 +41,8 @@ export default function AboutPage() {
     </div>
   );
 }
+
+
+//git add .
+//git commit -m "Add login button and login status to navbar"
+//git push

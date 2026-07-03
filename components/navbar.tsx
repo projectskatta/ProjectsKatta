@@ -5,12 +5,14 @@ import {
   Gamepad2,
   GraduationCap,
   LayoutDashboard,
+  LogIn,
   Package,
   Rocket,
   Store
 } from "lucide-react";
 import { getCurrentUser } from "@/lib/supabase-server";
 import { isAdminEmail } from "@/lib/admin";
+import { SignOutButton } from "@/components/sign-out-button";
 
 const baseNavItems = [
   { href: "/", label: "Home", icon: GraduationCap },
@@ -67,6 +69,23 @@ export async function Navbar() {
             );
           })}
         </nav>
+
+        {user ? (
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="hidden max-w-[10rem] truncate text-sm font-bold text-zinc-700 sm:inline">
+              {user.email}
+            </span>
+            <SignOutButton />
+          </div>
+        ) : (
+          <Link
+            href="/auth"
+            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-md bg-zinc-950 px-4 text-sm font-black text-white transition hover:bg-zinc-700"
+          >
+            <LogIn className="h-4 w-4" aria-hidden="true" />
+            Login
+          </Link>
+        )}
       </div>
     </header>
   );
