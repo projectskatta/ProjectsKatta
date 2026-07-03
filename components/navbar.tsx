@@ -9,18 +9,26 @@ import {
   Rocket,
   Store
 } from "lucide-react";
+import { getCurrentUser } from "@/lib/supabase-server";
+import { isAdminEmail } from "@/lib/admin";
 
-const navItems = [
+const baseNavItems = [
   { href: "/", label: "Home", icon: GraduationCap },
   { href: "/education", label: "Education", icon: BookOpenText },
   { href: "/projects", label: "Projects", icon: Rocket },
   { href: "/store", label: "Store", icon: Store },
   { href: "/games", label: "Games", icon: Gamepad2 },
-  { href: "/dashboard", label: "Dashboard", icon: Package },
-  { href: "/admin-katta", label: "Admin", icon: LayoutDashboard }
+  { href: "/dashboard", label: "Dashboard", icon: Package }
 ];
 
-export function Navbar() {
+export async function Navbar() {
+  const user = await getCurrentUser();
+  // Admin link only shows up for the two allowed emails — everyone else
+  // never even sees that the route exists.
+  const navItems = isAdminEmail(user?.email)
+    ? [...baseNavItems, { href: "/admin-katta", label: "Admin", icon: LayoutDashboard }]
+    : baseNavItems;
+
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">

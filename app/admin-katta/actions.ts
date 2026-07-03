@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseAdminClient } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/supabase-server";
+import { isAdminEmail } from "@/lib/admin";
 
 export type CommandState = {
   status: "idle" | "success" | "error";
@@ -10,6 +12,20 @@ export type CommandState = {
 
 const ok = (message: string): CommandState => ({ status: "success", message });
 const fail = (message: string): CommandState => ({ status: "error", message });
+
+// Belt-and-suspenders check: middleware already blocks /admin-katta for
+// non-admins, but every action re-checks the session directly too, so
+// these can never be triggered by a direct/replayed request either.
+// Returns null when the caller is an admin, otherwise a fail state to return immediately.
+async function requireAdmin(): Promise<CommandState | null> {
+  const user = await getCurrentUser();
+
+  if (!user || !isAdminEmail(user.email)) {
+    return fail("Not authorized.");
+  }
+
+  return null;
+}
 const bucket = process.env.SUPABASE_STORAGE_BUCKET ?? "projectskatta-files";
 
 function read(formData: FormData, key: string) {
@@ -179,6 +195,9 @@ export async function publishEducationResource(
   _previous: CommandState,
   formData: FormData
 ): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const subjectName = read(formData, "subject_name");
   const pdfFile = getFile(formData, "resource_file");
 
@@ -229,6 +248,9 @@ export async function publishEducationResource(
 }
 
 export async function publishSubject(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const subjectName = read(formData, "subject_name");
 
   if (!subjectName) {
@@ -260,6 +282,9 @@ export async function publishSubject(_previous: CommandState, formData: FormData
 }
 
 export async function publishProject(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const title = read(formData, "title");
   const reportFile = getFile(formData, "report_file");
 
@@ -300,6 +325,9 @@ export async function publishProject(_previous: CommandState, formData: FormData
 }
 
 export async function publishStoreKit(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const title = read(formData, "title");
 
   if (!title || !read(formData, "selling_price")) {
@@ -335,6 +363,9 @@ export async function publishVideoPoolItem(
   _previous: CommandState,
   formData: FormData
 ): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const youtubeVideoId = read(formData, "youtube_video_id");
 
   if (!youtubeVideoId) {
@@ -353,6 +384,9 @@ export async function publishVideoPoolItem(
 }
 
 export async function publishGame(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   const title = read(formData, "title");
   const htmlFile = getFile(formData, "html_file");
 

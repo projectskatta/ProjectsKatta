@@ -1,8 +1,19 @@
+import { redirect } from "next/navigation";
 import { ShieldCheck } from "lucide-react";
 import { AdminCommandCenter } from "@/components/admin-command-center";
 import { hasSupabaseConfig } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/supabase-server";
+import { isAdminEmail } from "@/lib/admin";
 
-export default function AdminKattaPage() {
+export default async function AdminKattaPage() {
+  const user = await getCurrentUser();
+
+  // Middleware already guards this route, this is a second check in case
+  // the page is ever rendered a different way.
+  if (!user || !isAdminEmail(user.email)) {
+    redirect("/");
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50">
       <section className="border-b border-zinc-200 bg-white">
