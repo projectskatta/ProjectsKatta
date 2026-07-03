@@ -91,3 +91,1248 @@ https://react.dev/link/hydration-mismatch
             ...
  
 [browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+⨯ ./proxy.ts:2:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [36mimport[0m { [33mNextResponse[0m, [36mtype[0m [33mNextRequest[0m } [36mfrom[0m [32m"next/server"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { isAdminEmail } [36mfrom[0m [32m"@/lib/admin"[0m;
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36masync[0m [36mfunction[0m proxy(request: [33mNextRequest[0m) {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./proxy.ts:2:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [36mimport[0m { [33mNextResponse[0m, [36mtype[0m [33mNextRequest[0m } [36mfrom[0m [32m"next/server"[0m;
+[31m[1m>[0m [90m2 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m3 |[0m [36mimport[0m { isAdminEmail } [36mfrom[0m [32m"@/lib/admin"[0m;
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mdefault[0m [36masync[0m [36mfunction[0m proxy(request: [33mNextRequest[0m) {
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/admin-katta/actions.ts
+
+  #2 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/admin-katta/page.tsx
+
+  #3 [Server Component]:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/admin-katta/actions.ts
+
+  #2 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/admin-katta/page.tsx
+
+  #3 [Server Component]:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-browser.ts:3:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [32m"use client"[0m;
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { createBrowserClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mfunction[0m createSupabaseBrowserClient() {
+  [90m6 |[0m   [36mconst[0m supabaseUrl = process.env.[33mNEXT_PUBLIC_SUPABASE_URL[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/supabase-browser.ts [Client Component Browser]
+    ./components/sign-out-button.tsx [Client Component Browser]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase-browser.ts [Client Component SSR]
+    ./components/sign-out-button.tsx [Client Component SSR]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-browser.ts:3:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [32m"use client"[0m;
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { createBrowserClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mfunction[0m createSupabaseBrowserClient() {
+  [90m6 |[0m   [36mconst[0m supabaseUrl = process.env.[33mNEXT_PUBLIC_SUPABASE_URL[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/supabase-browser.ts [Client Component Browser]
+    ./components/sign-out-button.tsx [Client Component Browser]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase-browser.ts [Client Component SSR]
+    ./components/sign-out-button.tsx [Client Component SSR]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-browser.ts:3:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [32m"use client"[0m;
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { createBrowserClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mfunction[0m createSupabaseBrowserClient() {
+  [90m6 |[0m   [36mconst[0m supabaseUrl = process.env.[33mNEXT_PUBLIC_SUPABASE_URL[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/supabase-browser.ts [Client Component Browser]
+    ./components/sign-out-button.tsx [Client Component Browser]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase-browser.ts [Client Component SSR]
+    ./components/sign-out-button.tsx [Client Component SSR]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-browser.ts:3:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m1 |[0m [32m"use client"[0m;
+  [90m2 |[0m
+[31m[1m>[0m [90m3 |[0m [36mimport[0m { createBrowserClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m4 |[0m
+  [90m5 |[0m [36mexport[0m [36mfunction[0m createSupabaseBrowserClient() {
+  [90m6 |[0m   [36mconst[0m supabaseUrl = process.env.[33mNEXT_PUBLIC_SUPABASE_URL[0m;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./lib/supabase-browser.ts [Client Component Browser]
+    ./components/sign-out-button.tsx [Client Component Browser]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./lib/supabase-browser.ts [Client Component SSR]
+    ./components/sign-out-button.tsx [Client Component SSR]
+    ./components/sign-out-button.tsx [Server Component]
+    ./app/dashboard/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/dashboard/page.tsx
+
+  #2 [Server Component]:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import traces:
+  #1 [Server Component]:
+    ./lib/supabase-server.ts
+    ./app/dashboard/page.tsx
+
+  #2 [Server Component]:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  [90m2 |[0m
+  [90m3 |[0m [36mimport[0m { cookies } [36mfrom[0m [32m"next/headers"[0m;
+[31m[1m>[0m [90m4 |[0m [36mimport[0m { createServerClient } [36mfrom[0m [32m"@supabase/ssr"[0m;
+  [90m  |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m5 |[0m
+  [90m6 |[0m [90m// This client reads/writes the auth session cookie. Use it anywhere you need[0m
+  [90m7 |[0m [90m// to know WHO is logged in (dashboard, admin checks, sign-out, server actions).[0m
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[browser] Uncaught Error: ./lib/supabase-server.ts:4:1
+Module not found: Can't resolve '@supabase/ssr'
+  2 |
+  3 | import { cookies } from "next/headers";
+> 4 | import { createServerClient } from "@supabase/ssr";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // This client reads/writes the auth session cookie. Use it anywhere you need
+  7 | // to know WHO is logged in (dashboard, admin checks, sign-out, server actions).
+
+
+
+Import trace:
+  Server Component:
+    ./lib/supabase-server.ts
+    ./components/navbar.tsx
+    ./app/layout.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./lib/supabase-server.ts:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at <unknown> (Error: (./lib/supabase-server.ts:4:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/?code=61c..." tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <HomePage>
+                  <div className="bg-zinc-50">
+                    <section className="mx-auto ma...">
+                      <div className="mx-auto ma...">
+                        <p>
+                        <h1>
+                        <p>
+                        <div className="mt-10">
+                          <MasterSearch>
+                            <form onSubmit={function handleSubmit} className="mx-auto w-...">
+                              <label className="relative b...">
+                                <span>
+                                <Search>
+                                <input
+                                  value=""
+                                  onChange={function onChange}
+                                  placeholder="Search BEE solutions, Arduino projects, ESP32 kits..."
+                                  className="h-16 w-full rounded-lg border border-zinc-300 bg-white pl-14 pr-4 text-ba..."
+-                                 fdprocessedid="b9563a"
+                                >
+                      ...
+                    ...
+              ...
+            ...
+ 
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+      <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+        <RedirectBoundary>
+          <RedirectErrorBoundary router={{...}}>
+            <InnerLayoutRouter url="/?code=61c..." tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} ...>
+              <SegmentViewNode type="page" pagePath="page.tsx">
+                <SegmentTrieNode>
+                <HomePage>
+                  <div className="bg-zinc-50">
+                    <section className="mx-auto ma...">
+                      <div className="mx-auto ma...">
+                        <p>
+                        <h1>
+                        <p>
+                        <div className="mt-10">
+                          <MasterSearch>
+                            <form onSubmit={function handleSubmit} className="mx-auto w-...">
+                              <label className="relative b...">
+                                <span>
+                                <Search>
+                                <input
+                                  value=""
+                                  onChange={function onChange}
+                                  placeholder="Search BEE solutions, Arduino projects, ESP32 kits..."
+                                  className="h-16 w-full rounded-lg border border-zinc-300 bg-white pl-14 pr-4 text-ba..."
+-                                 fdprocessedid="z589la"
+                                >
+                      ...
+                    ...
+              ...
+            ...
+ 

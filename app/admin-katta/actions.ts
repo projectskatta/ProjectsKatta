@@ -293,7 +293,10 @@ export async function publishProject(_previous: CommandState, formData: FormData
   }
 
   try {
-    const slug = read(formData, "project_slug") || slugify(title);
+    // FIX: Hamesha slugify run hoga taaki URL mein space na aaye
+    const rawSlug = read(formData, "project_slug") || title;
+    const slug = slugify(rawSlug);
+    
     const imageUpload = await uploadFile(getFile(formData, "image_file"), `projects/${slug}/images`);
     const reportUpload = await uploadFile(reportFile, `projects/${slug}/reports`);
     const codeFile = getFile(formData, "code_file");
@@ -335,7 +338,10 @@ export async function publishStoreKit(_previous: CommandState, formData: FormDat
   }
 
   try {
-    const slug = read(formData, "product_slug") || slugify(title);
+    // FIX: Hamesha slugify run hoga
+    const rawSlug = read(formData, "product_slug") || title;
+    const slug = slugify(rawSlug);
+    
     const imageUpload = await uploadFile(getFile(formData, "image_file"), `store/${slug}`);
     const gallery = parseLines(read(formData, "image_gallery"));
 
@@ -395,7 +401,10 @@ export async function publishGame(_previous: CommandState, formData: FormData): 
   }
 
   try {
-    const slug = read(formData, "slug") || slugify(title);
+    // FIX: Hamesha slugify run hoga
+    const rawSlug = read(formData, "slug") || title;
+    const slug = slugify(rawSlug);
+    
     const gameUpload = await uploadFile(htmlFile, `games/${slug}`);
     const thumbnailUpload = await uploadFile(getFile(formData, "thumbnail_file"), `games/${slug}/thumb`);
     const sourceFile = getFile(formData, "source_code_file");
