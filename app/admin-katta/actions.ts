@@ -109,7 +109,7 @@ function cleanFileName(name: string) {
   return `${slugify(base)}-${Date.now()}${ext.toLowerCase()}`;
 }
 
-async function uploadFile(file: File | null, folder: string) {
+async function uploadFile(file: File | null, folder: string, forceContentType?: string) {
   if (!file) {
     return null;
   }
@@ -123,7 +123,12 @@ async function uploadFile(file: File | null, folder: string) {
   const path = `${folder}/${cleanFileName(file.name)}`;
   const bytes = Buffer.from(await file.arrayBuffer());
   const { error } = await supabase.storage.from(bucket).upload(path, bytes, {
-    contentType: file.type || "application/octet-stream",
+    // Browsers (especially on Windows) often mis-report or omit the MIME type
+    // for .html files picked from disk, which makes Supabase Storage serve
+    // them as plain text/octet-stream — so the iframe shows raw code instead
+    // of rendering the game. forceContentType lets callers pin the correct
+    // type for file kinds where this matters.
+    contentType: forceContentType || file.type || "application/octet-stream",
     upsert: false
   });
 
@@ -405,7 +410,7 @@ export async function publishGame(_previous: CommandState, formData: FormData): 
     const rawSlug = read(formData, "slug") || title;
     const slug = slugify(rawSlug);
     
-    const gameUpload = await uploadFile(htmlFile, `games/${slug}`);
+    const gameUpload = await uploadFile(htmlFile, `games/${slug}`, "text/html");
     const thumbnailUpload = await uploadFile(getFile(formData, "thumbnail_file"), `games/${slug}/thumb`);
     const sourceFile = getFile(formData, "source_code_file");
     const sourceUpload = await uploadFile(sourceFile, `games/${slug}/source`);
@@ -674,7 +679,7 @@ export async function updateGame(_previous: CommandState, formData: FormData): P
     const rawSlug = read(formData, "slug") || title;
     const slug = slugify(rawSlug);
 
-    const gameUpload = await uploadFile(getFile(formData, "html_file"), `games/${slug}`);
+    const gameUpload = await uploadFile(getFile(formData, "html_file"), `games/${slug}`, "text/html");
     const thumbnailUpload = await uploadFile(getFile(formData, "thumbnail_file"), `games/${slug}/thumb`);
     const sourceFile = getFile(formData, "source_code_file");
     const sourceUpload = await uploadFile(sourceFile, `games/${slug}/source`);
