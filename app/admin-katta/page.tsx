@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { ShieldCheck, Trash2, Folder, PlusCircle } from "lucide-react";
 import { AdminCommandCenter } from "@/components/admin-command-center";
+import { ManageStoreKits } from "@/components/manage-store-kits";
 import { hasSupabaseConfig } from "@/lib/supabase";
 import { getCurrentUser } from "@/lib/supabase-server";
 import { isAdminEmail } from "@/lib/admin";
@@ -10,7 +11,6 @@ import {
   listGames, 
   listEducationResources, 
   deleteProject, 
-  deleteStoreKit, 
   deleteGame, 
   deleteEducationResource 
 } from "./actions";
@@ -92,6 +92,7 @@ export default async function AdminKattaPage() {
             </div>
           </div>
           {/* Tu yahan Store Kits aur Games ka bhi same block add kar sakta hai agar zaroorat pade */}
+          <ManageStoreKits kits={storeKits} />
         </div>
       </div>
     </div>

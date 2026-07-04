@@ -69,6 +69,14 @@ export type StoreKit = {
   stockStatus: boolean;
   imageGallery: string[];
   technicalSpecs: Record<string, string>;
+  whatsInBox: string[];
+  warrantyInfo: string;
+  returnPolicy: string;
+  weightGrams: number | null;
+  packageLengthCm: number | null;
+  packageWidthCm: number | null;
+  packageHeightCm: number | null;
+  availabilityStatus: "available" | "coming_soon" | "out_of_stock";
   createdAt: string;
 };
 

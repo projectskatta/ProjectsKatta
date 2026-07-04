@@ -306,6 +306,18 @@ function StoreForm() {
             ))}
           </select>
         </label>
+        <label className="block">
+          <span className="text-xs font-black uppercase tracking-wide text-zinc-500">Availability</span>
+          <select
+            name="availability_status"
+            defaultValue="available"
+            className="mt-2 h-11 w-full rounded-md border border-zinc-200 bg-zinc-50 px-3 text-sm font-bold"
+          >
+            <option value="available">Available (buttons active)</option>
+            <option value="coming_soon">Coming Soon (buttons hidden)</option>
+            <option value="out_of_stock">Out of Stock</option>
+          </select>
+        </label>
         <Field label="MRP" name="mrp" type="number" placeholder="2499" />
         <Field label="Selling Price" name="selling_price" type="number" placeholder="1749" required />
       </div>
@@ -313,6 +325,27 @@ function StoreForm() {
       <FileField label="Primary Kit Image" name="image_file" accept="image/*" />
       <TextArea label="Image URLs" name="image_gallery" placeholder={"/images/hero-lab.png\nhttps://..."} rows={3} />
       <TextArea label="Technical Specs" name="technical_specs" placeholder={"Controller: Arduino Uno\nBattery: 7.4V\nDifficulty: Beginner"} rows={5} />
+      <TextArea
+        label="What's in the Box"
+        name="whats_in_box"
+        placeholder={"1x Chassis kit\n1x Arduino Uno board\n2x BO geared motors\nWiring & screws"}
+        rows={4}
+      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <TextArea label="Warranty Info" name="warranty_info" placeholder="3 months warranty on electronic components." rows={2} />
+        <TextArea label="Return / Replacement Policy" name="return_policy" placeholder="7-day replacement for manufacturing defects." rows={2} />
+      </div>
+      <div>
+        <p className="text-xs font-black uppercase tracking-wide text-zinc-500">
+          Weight &amp; Package Dimensions (needed for Shiprocket shipping rates)
+        </p>
+        <div className="mt-2 grid gap-4 sm:grid-cols-4">
+          <Field label="Weight (grams)" name="weight_grams" type="number" placeholder="450" />
+          <Field label="Length (cm)" name="package_length_cm" type="number" placeholder="25" />
+          <Field label="Width (cm)" name="package_width_cm" type="number" placeholder="18" />
+          <Field label="Height (cm)" name="package_height_cm" type="number" placeholder="8" />
+        </div>
+      </div>
       <label className="flex items-center gap-2 text-sm font-bold text-zinc-700">
         <input name="stock_status" type="checkbox" defaultChecked className="h-4 w-4 rounded border-zinc-300" />
         In stock

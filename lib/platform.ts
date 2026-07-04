@@ -115,6 +115,23 @@ function mapStoreKitRow(row: Record<string, unknown>): StoreKit {
       typeof row.technical_specs === "object" && row.technical_specs !== null
         ? (row.technical_specs as StoreKit["technicalSpecs"])
         : {},
+    whatsInBox:
+      typeof row.whats_in_box === "string" && row.whats_in_box.trim()
+        ? row.whats_in_box
+            .split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+        : [],
+    warrantyInfo: String(row.warranty_info ?? ""),
+    returnPolicy: String(row.return_policy ?? ""),
+    weightGrams: row.weight_grams === null || row.weight_grams === undefined ? null : Number(row.weight_grams),
+    packageLengthCm:
+      row.package_length_cm === null || row.package_length_cm === undefined ? null : Number(row.package_length_cm),
+    packageWidthCm:
+      row.package_width_cm === null || row.package_width_cm === undefined ? null : Number(row.package_width_cm),
+    packageHeightCm:
+      row.package_height_cm === null || row.package_height_cm === undefined ? null : Number(row.package_height_cm),
+    availabilityStatus: String(row.availability_status ?? "available") as StoreKit["availabilityStatus"],
     createdAt: String(row.created_at ?? new Date().toISOString())
   };
 }
@@ -238,11 +255,29 @@ export async function getStoreKits(): Promise<StoreKit[]> {
   const { data, error } = await supabase
     .from("store_kits")
     .select(
-      "id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, created_at"
+      "id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, whats_in_box, warranty_info, return_policy, weight_grams, package_length_cm, package_width_cm, package_height_cm, availability_status, created_at"
     )
     .order("created_at", { ascending: false });
 
   return error || !data ? storeKits : data.map((row) => mapStoreKitRow(row));
+}
+
+export async function getStoreKit(slug: string): Promise<StoreKit | undefined> {
+  const supabase = createSupabaseServerClient();
+
+  if (!supabase) {
+    return storeKits.find((kit) => kit.productSlug === slug);
+  }
+
+  const { data, error } = await supabase
+    .from("store_kits")
+    .select(
+      "id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, whats_in_box, warranty_info, return_policy, weight_grams, package_length_cm, package_width_cm, package_height_cm, availability_status, created_at"
+    )
+    .eq("product_slug", slug)
+    .maybeSingle();
+
+  return error || !data ? storeKits.find((kit) => kit.productSlug === slug) : mapStoreKitRow(data);
 }
 
 export async function getGames(): Promise<GameScript[]> {

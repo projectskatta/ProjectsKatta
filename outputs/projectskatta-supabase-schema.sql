@@ -68,6 +68,19 @@ create table if not exists store_kits (
   created_at timestamp with time zone default now()
 );
 
+-- Added for the full product page + Shiprocket shipping integration.
+alter table store_kits add column if not exists whats_in_box text default '';
+alter table store_kits add column if not exists warranty_info text default '';
+alter table store_kits add column if not exists return_policy text default '';
+alter table store_kits add column if not exists weight_grams int;
+alter table store_kits add column if not exists package_length_cm numeric;
+alter table store_kits add column if not exists package_width_cm numeric;
+alter table store_kits add column if not exists package_height_cm numeric;
+alter table store_kits add column if not exists availability_status text not null default 'available';
+alter table store_kits drop constraint if exists store_kits_availability_status_check;
+alter table store_kits add constraint store_kits_availability_status_check
+  check (availability_status in ('available', 'coming_soon', 'out_of_stock'));
+
 create table if not exists projects (
   id uuid primary key default gen_random_uuid(),
   project_slug text unique not null,

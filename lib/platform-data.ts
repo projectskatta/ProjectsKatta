@@ -304,6 +304,14 @@ export const storeKits: StoreKit[] = [
       Battery: "7.4V Li-ion recommended",
       Difficulty: "Beginner to intermediate"
     },
+    whatsInBox: ["1x Chassis kit", "1x Arduino Uno compatible board", "1x 5-channel IR sensor array", "2x BO geared motors", "Wiring & screws"],
+    warrantyInfo: "3 months warranty on electronic components.",
+    returnPolicy: "7-day replacement for manufacturing defects.",
+    weightGrams: 450,
+    packageLengthCm: 25,
+    packageWidthCm: 18,
+    packageHeightCm: 8,
+    availabilityStatus: "available",
     createdAt: "2026-06-25T07:00:00.000Z"
   },
   {
@@ -323,6 +331,14 @@ export const storeKits: StoreKit[] = [
       Connectivity: "Wi-Fi 2.4GHz",
       Safety: "Opto-isolated relay board"
     },
+    whatsInBox: ["1x ESP32 DevKit board", "1x 4-channel relay module", "Jumper wires", "USB cable"],
+    warrantyInfo: "3 months warranty on electronic components.",
+    returnPolicy: "7-day replacement for manufacturing defects.",
+    weightGrams: 250,
+    packageLengthCm: 20,
+    packageWidthCm: 14,
+    packageHeightCm: 6,
+    availabilityStatus: "available",
     createdAt: "2026-06-21T07:00:00.000Z"
   },
   {
@@ -342,6 +358,14 @@ export const storeKits: StoreKit[] = [
       LEDs: "5mm mixed colors",
       Use: "Lab practice and viva prep"
     },
+    whatsInBox: ["1x Breadboard", "Assorted resistors & ICs", "Assorted LEDs", "Jumper wires"],
+    warrantyInfo: "No warranty on consumable components.",
+    returnPolicy: "7-day replacement for manufacturing defects.",
+    weightGrams: 300,
+    packageLengthCm: 22,
+    packageWidthCm: 15,
+    packageHeightCm: 5,
+    availabilityStatus: "available",
     createdAt: "2026-06-18T07:00:00.000Z"
   }
 ];

@@ -361,7 +361,15 @@ export async function publishStoreKit(_previous: CommandState, formData: FormDat
         selling_price: readNumber(formData, "selling_price"),
         stock_status: formData.get("stock_status") === "on",
         image_gallery: imageUpload?.url ? [imageUpload.url, ...gallery] : gallery,
-        technical_specs: parseSpecs(read(formData, "technical_specs"))
+        technical_specs: parseSpecs(read(formData, "technical_specs")),
+        whats_in_box: read(formData, "whats_in_box"),
+        warranty_info: read(formData, "warranty_info"),
+        return_policy: read(formData, "return_policy"),
+        weight_grams: formData.get("weight_grams") ? readNumber(formData, "weight_grams") : null,
+        package_length_cm: formData.get("package_length_cm") ? readNumber(formData, "package_length_cm") : null,
+        package_width_cm: formData.get("package_width_cm") ? readNumber(formData, "package_width_cm") : null,
+        package_height_cm: formData.get("package_height_cm") ? readNumber(formData, "package_height_cm") : null,
+        availability_status: read(formData, "availability_status") || "available"
       },
       ["/", "/store"]
     );
@@ -462,7 +470,9 @@ export async function listStoreKits() {
 
   const { data } = await supabase
     .from("store_kits")
-    .select("id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, created_at")
+    .select(
+      "id, product_slug, title, category, summary, mrp, selling_price, stock_status, image_gallery, technical_specs, whats_in_box, warranty_info, return_policy, weight_grams, package_length_cm, package_width_cm, package_height_cm, availability_status, created_at"
+    )
     .order("created_at", { ascending: false });
 
   return data ?? [];
@@ -649,7 +659,15 @@ export async function updateStoreKit(_previous: CommandState, formData: FormData
         selling_price: readNumber(formData, "selling_price"),
         stock_status: formData.get("stock_status") === "on",
         image_gallery: finalGallery,
-        technical_specs: parseSpecs(read(formData, "technical_specs"))
+        technical_specs: parseSpecs(read(formData, "technical_specs")),
+        whats_in_box: read(formData, "whats_in_box"),
+        warranty_info: read(formData, "warranty_info"),
+        return_policy: read(formData, "return_policy"),
+        weight_grams: formData.get("weight_grams") ? readNumber(formData, "weight_grams") : null,
+        package_length_cm: formData.get("package_length_cm") ? readNumber(formData, "package_length_cm") : null,
+        package_width_cm: formData.get("package_width_cm") ? readNumber(formData, "package_width_cm") : null,
+        package_height_cm: formData.get("package_height_cm") ? readNumber(formData, "package_height_cm") : null,
+        availability_status: read(formData, "availability_status") || "available"
       })
       .eq("id", id);
 
