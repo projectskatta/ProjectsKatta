@@ -175,3 +175,48 @@
  GET / 200 in 1585ms (next.js: 16ms, application-code: 1569ms)
  GET / 200 in 1251ms (next.js: 10ms, application-code: 1241ms)
  GET / 200 in 1252ms (next.js: 73ms, application-code: 1179ms)
+✓ Compiled in 1995ms
+ GET / 200 in 3.6s (next.js: 666ms, application-code: 2.9s)
+ GET / 200 in 830ms (next.js: 13ms, application-code: 817ms)
+ GET / 200 in 1248ms (next.js: 86ms, application-code: 1162ms)
+ GET / 200 in 936ms (next.js: 103ms, application-code: 833ms)
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://127.0.0.1:3000
+- Network:       http://127.0.0.1:3000
+- Environments: .env.local
+✓ Ready in 1178ms
+
+ GET / 200 in 3.7s (next.js: 803ms, application-code: 2.9s)
+✓ Compiled in 1976ms
+ GET / 200 in 951ms (next.js: 138ms, application-code: 813ms)
+✓ Compiled in 2.1s
+ GET / 200 in 1309ms (next.js: 167ms, application-code: 1142ms)
+ GET / 200 in 823ms (next.js: 92ms, application-code: 731ms)
+ GET / 200 in 832ms (next.js: 22ms, application-code: 810ms)
+ GET / 200 in 1096ms (next.js: 109ms, application-code: 987ms)
+✓ Compiled in 4.4s
+  Reload env: .env.local
+✓ Compiled in 1101ms
+ GET / 200 in 2.9s (next.js: 623ms, application-code: 2.3s)
+ GET / 200 in 1200ms (next.js: 94ms, application-code: 1105ms)
+ GET / 200 in 969ms (next.js: 138ms, application-code: 830ms)
+ GET / 200 in 983ms (next.js: 65ms, application-code: 919ms)
+ GET / 200 in 1001ms (next.js: 9ms, application-code: 991ms)
+ GET / 200 in 1723ms (next.js: 372ms, application-code: 1351ms)
+ GET / 200 in 1573ms (next.js: 341ms, application-code: 1231ms)
+ GET / 200 in 933ms (next.js: 57ms, application-code: 876ms)
+✓ Compiled in 881ms
+ GET / 200 in 565ms (next.js: 4ms, application-code: 561ms)
+ GET / 200 in 805ms (next.js: 89ms, application-code: 716ms)
+ GET / 200 in 632ms (next.js: 3ms, application-code: 628ms)
+ GET / 200 in 1869ms (next.js: 749ms, application-code: 1120ms)
+ GET / 200 in 859ms (next.js: 94ms, application-code: 766ms)
+ GET / 200 in 935ms (next.js: 382ms, application-code: 554ms)
+ GET / 200 in 563ms (next.js: 73ms, application-code: 490ms)
+ GET / 200 in 400ms (next.js: 98ms, application-code: 302ms)
+ GET / 200 in 156ms (next.js: 7ms, application-code: 149ms)
+ GET / 200 in 1345ms (next.js: 75ms, application-code: 1270ms)
+ GET /store 200 in 335ms (next.js: 213ms, application-code: 122ms)
+ POST /store 200 in 274ms (next.js: 9ms, application-code: 266ms)
+  └─ ƒ createRazorpayOrder(799) in 208ms app/actions/razorpay.ts
+[?25h

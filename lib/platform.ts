@@ -146,11 +146,10 @@ export async function getSubjects(query?: string): Promise<AcademicSubject[]> {
 
   let request = supabase
     .from("subjects")
-    .select("id, university, pattern_scheme, branch, year, semester, subject_name, subject_slug, subject_code, regulation_year, created_at")
+    .select("id, university, pattern_scheme, branch, semester, subject_name, subject_slug, subject_code, regulation_year, created_at")
     .order("university", { ascending: true })
     .order("pattern_scheme", { ascending: true })
     .order("branch", { ascending: true })
-    .order("year", { ascending: true })
     .order("semester", { ascending: true })
     .order("subject_name", { ascending: true });
 
@@ -177,7 +176,7 @@ export async function getEducationResources(query?: string): Promise<EducationRe
   let request = supabase
     .from("resources")
     .select(
-      "id, subject_id, university, pattern_scheme, branch, year, semester, subject_name, subject_slug, category_type, file_title, file_url, file_path, exam_year, download_count, is_trending, created_at"
+      "id, subject_id, university, pattern_scheme, branch, semester, subject_name, subject_slug, category_type, file_title, file_url, file_path, exam_year, download_count, is_trending, created_at"
     )
     .order("created_at", { ascending: false });
 
