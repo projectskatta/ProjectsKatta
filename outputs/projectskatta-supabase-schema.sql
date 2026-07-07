@@ -224,3 +224,69 @@ alter table store_kits add column if not exists availability_status text not nul
 alter table store_kits drop constraint if exists store_kits_availability_status_check;
 alter table store_kits add constraint store_kits_availability_status_check
   check (availability_status in ('available', 'coming_soon', 'out_of_stock'));
+
+-- ---------------------------------------------------------------------------
+-- Student Dashboard: profile, saved addresses, bookmarks.
+-- Each table is scoped so a user can only ever see/edit their OWN rows —
+-- enforced by Postgres RLS using auth.uid(), not just app-level checks.
+-- ---------------------------------------------------------------------------
+
+create table if not exists profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  full_name text,
+  phone text,
+  university text,
+  branch text,
+  academic_status text,
+  updated_at timestamp with time zone default now()
+);
+
+alter table profiles enable row level security;
+drop policy if exists "profiles select own" on profiles;
+drop policy if exists "profiles insert own" on profiles;
+drop policy if exists "profiles update own" on profiles;
+create policy "profiles select own" on profiles for select using (auth.uid() = id);
+create policy "profiles insert own" on profiles for insert with check (auth.uid() = id);
+create policy "profiles update own" on profiles for update using (auth.uid() = id);
+
+create table if not exists addresses (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  full_name text not null,
+  phone text not null,
+  pincode text not null,
+  city text not null,
+  state text not null,
+  street_address text not null,
+  is_default boolean not null default false,
+  created_at timestamp with time zone default now()
+);
+
+alter table addresses enable row level security;
+drop policy if exists "addresses select own" on addresses;
+drop policy if exists "addresses insert own" on addresses;
+drop policy if exists "addresses update own" on addresses;
+drop policy if exists "addresses delete own" on addresses;
+create policy "addresses select own" on addresses for select using (auth.uid() = user_id);
+create policy "addresses insert own" on addresses for insert with check (auth.uid() = user_id);
+create policy "addresses update own" on addresses for update using (auth.uid() = user_id);
+create policy "addresses delete own" on addresses for delete using (auth.uid() = user_id);
+
+create table if not exists bookmarks (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  item_type text not null check (item_type in ('resource', 'project')),
+  item_id uuid,
+  title text not null,
+  meta text,
+  file_url text,
+  created_at timestamp with time zone default now()
+);
+
+alter table bookmarks enable row level security;
+drop policy if exists "bookmarks select own" on bookmarks;
+drop policy if exists "bookmarks insert own" on bookmarks;
+drop policy if exists "bookmarks delete own" on bookmarks;
+create policy "bookmarks select own" on bookmarks for select using (auth.uid() = user_id);
+create policy "bookmarks insert own" on bookmarks for insert with check (auth.uid() = user_id);
+create policy "bookmarks delete own" on bookmarks for delete using (auth.uid() = user_id);

@@ -1,7 +1,11 @@
 import { redirect } from "next/navigation";
-import { Bookmark, FileUp } from "lucide-react";
+import { Package } from "lucide-react";
 import { getCurrentUser } from "@/lib/supabase-server";
 import { SignOutButton } from "@/components/sign-out-button";
+import { DashboardProfile } from "@/components/dashboard-profile";
+import { DashboardAddresses } from "@/components/dashboard-addresses";
+import { DashboardBookmarks } from "@/components/dashboard-bookmarks";
+import { getProfile, listAddresses, listBookmarks } from "@/app/actions/dashboard";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -12,34 +16,51 @@ export default async function DashboardPage() {
     redirect("/auth?next=/dashboard");
   }
 
+  const [profile, addresses, bookmarks] = await Promise.all([getProfile(), listAddresses(), listBookmarks()]);
+
   return (
     <div className="min-h-screen">
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <h1 className="text-4xl font-black tracking-tight text-zinc-950">Student Dashboard</h1>
-              <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-600">
-                Signed in as <span className="font-bold text-zinc-950">{user.email}</span>
-              </p>
-            </div>
-            <SignOutButton />
-          </div>
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mb-8 flex items-center justify-between">
+          <h1 className="text-2xl font-black tracking-tight text-zinc-950 sm:text-3xl">My Dashboard</h1>
+          <SignOutButton />
+        </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-              <Bookmark className="h-5 w-5 text-zinc-950" aria-hidden="true" />
-              <h2 className="mt-4 text-xl font-black text-zinc-950">Bookmarked Notes</h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">Rapid exam-night access to your saved notes.</p>
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* LEFT: Profile */}
+          <DashboardProfile email={user.email ?? ""} profile={profile ?? { fullName: "", phone: "", university: "", branch: "", academicStatus: "" }} />
+
+          {/* RIGHT: Orders + Addresses */}
+          <div className="flex flex-col gap-6">
+            <div className="pk-glass flex-1 rounded-3xl p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-black text-zinc-950">Your Orders</h3>
+                <span className="flex items-center gap-1 text-sm font-black text-blue-600">
+                  <Package className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </div>
+              <div className="rounded-2xl border border-dashed border-zinc-300 bg-white/40 p-6 text-center">
+                <p className="text-sm font-semibold text-zinc-500">
+                  You haven&apos;t ordered anything yet. Kit orders you place will show up here.
+                </p>
+              </div>
             </div>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-5">
-              <FileUp className="h-5 w-5 text-zinc-950" aria-hidden="true" />
-              <h2 className="mt-4 text-xl font-black text-zinc-950">Contribution Corner</h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">Student notes can enter an admin approval queue later.</p>
-            </div>
+
+            <DashboardAddresses addresses={addresses} />
           </div>
         </div>
-      </section>
+
+        {/* BOTTOM: Bookmarks */}
+        <section className="pk-glass mt-6 rounded-3xl p-8">
+          <div className="mb-6 flex items-center justify-between border-b border-zinc-200/60 pb-4">
+            <div>
+              <h3 className="text-xl font-black text-zinc-950">Saved Notes &amp; Bookmarks</h3>
+              <p className="mt-1 text-sm text-zinc-500">Your personal library of notes, PYQs, and saved projects.</p>
+            </div>
+          </div>
+          <DashboardBookmarks bookmarks={bookmarks} />
+        </section>
+      </div>
     </div>
   );
 }
