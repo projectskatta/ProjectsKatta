@@ -15,7 +15,7 @@ export default async function AuthPage({
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen">
       <section className="mx-auto max-w-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm">
           <p className="text-sm font-black uppercase tracking-wide text-zinc-500">Auth</p>

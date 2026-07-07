@@ -21,7 +21,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   const isPremium = project.projectTier === "premium";
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-20">
+    <div className="min-h-screen pb-20">
       <section className="border-b border-zinc-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase tracking-wide text-zinc-500">{project.categoryTag}</p>

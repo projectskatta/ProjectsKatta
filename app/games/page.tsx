@@ -5,7 +5,7 @@ export default async function GamesPage() {
   const gameScripts = await getGames();
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen">
       <section className="border-b border-zinc-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase tracking-wide text-zinc-500">Games Arcade</p>

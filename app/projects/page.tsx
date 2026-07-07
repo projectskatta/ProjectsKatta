@@ -10,8 +10,8 @@ export default async function ProjectsPage() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <section className="border-b border-zinc-200 bg-white">
+    <div className="min-h-screen">
+      <section className="border-b border-zinc-200/60">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <p className="text-sm font-black uppercase tracking-wide text-zinc-500">Projects Library</p>
           <h1 className="mt-2 max-w-4xl text-4xl font-black tracking-tight text-zinc-950 sm:text-5xl">

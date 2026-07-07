@@ -297,6 +297,61 @@ export async function getGames(): Promise<GameScript[]> {
   return error || !data ? gameScripts : data.map((row) => mapGameRow(row));
 }
 
+export type Testimonial = {
+  id: string;
+  studentName: string;
+  studentDetail: string | null;
+  quote: string;
+  rating: number;
+};
+
+// Deliberately NO static/demo fallback here — testimonials must be real.
+// If Supabase isn't configured or there's no data yet, this returns an
+// empty list and the homepage shows an honest "no reviews yet" state.
+export async function getTestimonials(): Promise<Testimonial[]> {
+  const supabase = createSupabaseServerClient();
+
+  if (!supabase) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("testimonials")
+    .select("id, student_name, student_detail, quote, rating, is_published, created_at")
+    .eq("is_published", true)
+    .order("created_at", { ascending: false })
+    .limit(9);
+
+  if (error || !data) {
+    return [];
+  }
+
+  return data.map((row) => ({
+    id: String(row.id),
+    studentName: String(row.student_name),
+    studentDetail: row.student_detail ? String(row.student_detail) : null,
+    quote: String(row.quote),
+    rating: Number(row.rating ?? 5)
+  }));
+}
+
+export async function getHomepageStats() {
+  const [resources, kits, projects, subjects] = await Promise.all([
+    getEducationResources(),
+    getStoreKits(),
+    getProjects(),
+    getSubjects()
+  ]);
+
+  const branchCount = new Set(subjects.map((subject) => subject.branch)).size;
+
+  return {
+    resourceCount: resources.length,
+    kitAndProjectCount: kits.length + projects.length,
+    branchCount
+  };
+}
+
 function filterSubjects(items: AcademicSubject[], query?: string) {
   if (!query) {
     return items;

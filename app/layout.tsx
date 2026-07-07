@@ -17,8 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* Sitewide subtle background — same color family as the animated
+            homepage hero, but static (no motion) and much lower intensity.
+            Fixed so it never scrolls away, on every page. */}
+        <div className="pk-site-bg" aria-hidden="true" />
         <Navbar />
-        <main>{children}</main>
+        <main className="relative">{children}</main>
         <SiteFooter />
       </body>
     </html>

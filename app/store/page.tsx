@@ -9,8 +9,8 @@ export default async function StorePage() {
   const kits = await getStoreKits();
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <section className="border-b border-zinc-200 bg-white">
+    <div className="min-h-screen">
+      <section className="border-b border-zinc-200/60">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
           <div>
             <p className="text-sm font-black uppercase tracking-wide text-zinc-500">The Store</p>

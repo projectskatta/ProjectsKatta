@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { ShieldCheck, Trash2, Folder, PlusCircle } from "lucide-react";
 import { AdminCommandCenter } from "@/components/admin-command-center";
 import { ManageStoreKits } from "@/components/manage-store-kits";
+import { ManageHomepageContent } from "@/components/manage-homepage-content";
 import { hasSupabaseConfig } from "@/lib/supabase";
 import { getCurrentUser } from "@/lib/supabase-server";
 import { isAdminEmail } from "@/lib/admin";
@@ -10,7 +11,10 @@ import {
   listStoreKits, 
   listGames, 
   listEducationResources, 
+  listFaqQuestions,
+  listTestimonials,
   deleteProject, 
+  deleteStoreKit, 
   deleteGame, 
   deleteEducationResource 
 } from "./actions";
@@ -27,9 +31,11 @@ export default async function AdminKattaPage() {
   const storeKits = await listStoreKits();
   const games = await listGames();
   const educationResources = await listEducationResources();
+  const faqQuestions = await listFaqQuestions();
+  const testimonials = await listTestimonials();
 
   return (
-    <div className="min-h-screen bg-zinc-50 pb-16">
+    <div className="min-h-screen pb-16">
       <section className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-10 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8">
           <div>
@@ -91,8 +97,9 @@ export default async function AdminKattaPage() {
               )}
             </div>
           </div>
-          {/* Tu yahan Store Kits aur Games ka bhi same block add kar sakta hai agar zaroorat pade */}
+          {/* Tu yahan Games aur Education ka bhi same block add kar sakta hai agar zaroorat pade */}
           <ManageStoreKits kits={storeKits} />
+          <ManageHomepageContent questions={faqQuestions} testimonials={testimonials} />
         </div>
       </div>
     </div>

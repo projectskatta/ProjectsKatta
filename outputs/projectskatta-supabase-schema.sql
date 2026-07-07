@@ -68,19 +68,6 @@ create table if not exists store_kits (
   created_at timestamp with time zone default now()
 );
 
--- Added for the full product page + Shiprocket shipping integration.
-alter table store_kits add column if not exists whats_in_box text default '';
-alter table store_kits add column if not exists warranty_info text default '';
-alter table store_kits add column if not exists return_policy text default '';
-alter table store_kits add column if not exists weight_grams int;
-alter table store_kits add column if not exists package_length_cm numeric;
-alter table store_kits add column if not exists package_width_cm numeric;
-alter table store_kits add column if not exists package_height_cm numeric;
-alter table store_kits add column if not exists availability_status text not null default 'available';
-alter table store_kits drop constraint if exists store_kits_availability_status_check;
-alter table store_kits add constraint store_kits_availability_status_check
-  check (availability_status in ('available', 'coming_soon', 'out_of_stock'));
-
 create table if not exists projects (
   id uuid primary key default gen_random_uuid(),
   project_slug text unique not null,
@@ -187,3 +174,53 @@ on conflict (university, pattern_scheme, branch, semester, subject_slug) do noth
 
 -- Inserts should happen from server actions using SUPABASE_SERVICE_ROLE_KEY.
 -- Do not expose the service role key in the browser.
+
+-- ---------------------------------------------------------------------------
+-- Homepage additions: FAQ question submissions + real testimonials.
+-- ---------------------------------------------------------------------------
+
+-- Student-submitted questions from the homepage FAQ "ask a question" form.
+-- Admin reviews these in the admin panel and can turn good ones into public FAQs.
+create table if not exists faq_questions (
+  id uuid primary key default gen_random_uuid(),
+  name text,
+  email text,
+  question text not null,
+  status text not null default 'new' check (status in ('new', 'answered', 'archived')),
+  created_at timestamp with time zone default now()
+);
+
+alter table faq_questions enable row level security;
+drop policy if exists "faq_questions insert" on faq_questions;
+create policy "faq_questions insert" on faq_questions for insert with check (true);
+
+-- Real testimonials only — added manually by admin when a genuine review comes in.
+-- The homepage shows this section empty until real entries exist here.
+create table if not exists testimonials (
+  id uuid primary key default gen_random_uuid(),
+  student_name text not null,
+  student_detail text,
+  quote text not null,
+  rating int not null default 5 check (rating between 1 and 5),
+  is_published boolean not null default true,
+  created_at timestamp with time zone default now()
+);
+
+alter table testimonials enable row level security;
+drop policy if exists "testimonials public read" on testimonials;
+create policy "testimonials public read" on testimonials for select using (is_published = true);
+
+-- ---------------------------------------------------------------------------
+-- Store Kits: extra fields for the full product page + Shiprocket shipping.
+-- ---------------------------------------------------------------------------
+alter table store_kits add column if not exists whats_in_box text default '';
+alter table store_kits add column if not exists warranty_info text default '';
+alter table store_kits add column if not exists return_policy text default '';
+alter table store_kits add column if not exists weight_grams int;
+alter table store_kits add column if not exists package_length_cm numeric;
+alter table store_kits add column if not exists package_width_cm numeric;
+alter table store_kits add column if not exists package_height_cm numeric;
+alter table store_kits add column if not exists availability_status text not null default 'available';
+alter table store_kits drop constraint if exists store_kits_availability_status_check;
+alter table store_kits add constraint store_kits_availability_status_check
+  check (availability_status in ('available', 'coming_soon', 'out_of_stock'));

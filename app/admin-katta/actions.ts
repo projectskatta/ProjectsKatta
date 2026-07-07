@@ -734,3 +734,99 @@ export async function updateGame(_previous: CommandState, formData: FormData): P
     return fail(error instanceof Error ? error.message : "Unable to update game.");
   }
 }
+// ---------------------------------------------------------------------------
+// Homepage: FAQ question inbox + testimonials management.
+// ---------------------------------------------------------------------------
+
+export async function listFaqQuestions() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("faq_questions")
+    .select("id, name, email, question, status, created_at")
+    .order("created_at", { ascending: false })
+    .limit(200);
+
+  return data ?? [];
+}
+
+export async function updateFaqQuestionStatus(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  const status = read(formData, "status");
+  if (!id || !status) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("faq_questions").update({ status }).eq("id", id);
+  revalidatePath("/admin-katta");
+}
+
+export async function deleteFaqQuestion(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("faq_questions").delete().eq("id", id);
+  revalidatePath("/admin-katta");
+}
+
+export async function listTestimonials() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("testimonials")
+    .select("id, student_name, student_detail, quote, rating, is_published, created_at")
+    .order("created_at", { ascending: false });
+
+  return data ?? [];
+}
+
+export async function publishTestimonial(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const studentName = read(formData, "student_name");
+  const quote = read(formData, "quote");
+
+  if (!studentName || !quote) {
+    return fail("Student name and quote are both required — no placeholder reviews.");
+  }
+
+  return insertOrDemo(
+    "testimonials",
+    {
+      student_name: studentName,
+      student_detail: read(formData, "student_detail") || null,
+      quote,
+      rating: readNumber(formData, "rating") || 5,
+      is_published: formData.get("is_published") !== "off"
+    },
+    ["/"]
+  );
+}
+
+export async function deleteTestimonial(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("testimonials").delete().eq("id", id);
+  revalidatePath("/");
+  revalidatePath("/admin-katta");
+}
