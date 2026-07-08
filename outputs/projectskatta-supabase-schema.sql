@@ -290,3 +290,115 @@ drop policy if exists "bookmarks delete own" on bookmarks;
 create policy "bookmarks select own" on bookmarks for select using (auth.uid() = user_id);
 create policy "bookmarks insert own" on bookmarks for insert with check (auth.uid() = user_id);
 create policy "bookmarks delete own" on bookmarks for delete using (auth.uid() = user_id);
+
+-- ---------------------------------------------------------------------------
+-- Notifications: order updates, admin broadcast ads, and FAQ answers.
+-- user_id = NULL means a broadcast notification (everyone sees it).
+-- Read-state is tracked per-user separately, since one user marking a
+-- broadcast notification as read shouldn't affect anyone else.
+-- ---------------------------------------------------------------------------
+
+alter table faq_questions add column if not exists user_id uuid references auth.users(id) on delete set null;
+alter table faq_questions add column if not exists answer text;
+
+create table if not exists notifications (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  type text not null check (type in ('order', 'advertisement', 'faq_answer')),
+  title text not null,
+  body text not null,
+  link_url text,
+  created_at timestamp with time zone default now()
+);
+
+alter table notifications enable row level security;
+drop policy if exists "notifications select own or broadcast" on notifications;
+create policy "notifications select own or broadcast" on notifications
+  for select using (auth.uid() = user_id or user_id is null);
+
+create table if not exists notification_reads (
+  notification_id uuid references notifications(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  read_at timestamp with time zone default now(),
+  primary key (notification_id, user_id)
+);
+
+alter table notification_reads enable row level security;
+drop policy if exists "notification_reads own" on notification_reads;
+create policy "notification_reads own" on notification_reads
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ---------------------------------------------------------------------------
+-- Profile expansion: global profile types (not just students), avatar,
+-- and type-specific fields. Only the fields relevant to the selected
+-- profile_type get shown/filled — the rest stay null.
+-- ---------------------------------------------------------------------------
+
+alter table profiles add column if not exists avatar_url text;
+alter table profiles add column if not exists country text;
+alter table profiles add column if not exists city text;
+alter table profiles add column if not exists profile_type text not null default 'student'
+  check (profile_type in ('student', 'professional', 'hobbyist', 'organization', 'teacher'));
+
+-- Student
+alter table profiles add column if not exists course text;
+alter table profiles add column if not exists semester text;
+-- university, branch already existed from the first profiles migration
+
+-- Professional
+alter table profiles add column if not exists company text;
+alter table profiles add column if not exists role text;
+alter table profiles add column if not exists experience text;
+
+-- Hobbyist
+alter table profiles add column if not exists interests text; -- comma-separated
+
+-- Organization
+alter table profiles add column if not exists org_name text;
+alter table profiles add column if not exists gst_number text;
+alter table profiles add column if not exists shipping_contact text;
+
+-- Teacher
+alter table profiles add column if not exists institution text;
+alter table profiles add column if not exists subject_taught text;
+alter table profiles add column if not exists designation text;
+
+-- ---------------------------------------------------------------------------
+-- Student-uploaded notes — students can share their own notes; other
+-- students can rate them. Where these surface on the Education page is
+-- decided later when that page gets redesigned.
+-- ---------------------------------------------------------------------------
+
+create table if not exists student_notes (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  title text not null,
+  file_url text not null,
+  file_path text,
+  is_approved boolean not null default false,
+  created_at timestamp with time zone default now()
+);
+
+alter table student_notes enable row level security;
+drop policy if exists "student_notes select own" on student_notes;
+drop policy if exists "student_notes select approved" on student_notes;
+drop policy if exists "student_notes insert own" on student_notes;
+drop policy if exists "student_notes delete own" on student_notes;
+create policy "student_notes select own" on student_notes for select using (auth.uid() = user_id);
+create policy "student_notes select approved" on student_notes for select using (is_approved = true);
+create policy "student_notes insert own" on student_notes for insert with check (auth.uid() = user_id);
+create policy "student_notes delete own" on student_notes for delete using (auth.uid() = user_id);
+
+create table if not exists student_note_ratings (
+  note_id uuid references student_notes(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  stars int not null check (stars between 1 and 5),
+  created_at timestamp with time zone default now(),
+  primary key (note_id, user_id)
+);
+
+alter table student_note_ratings enable row level security;
+drop policy if exists "student_note_ratings select all" on student_note_ratings;
+drop policy if exists "student_note_ratings own" on student_note_ratings;
+create policy "student_note_ratings select all" on student_note_ratings for select using (true);
+create policy "student_note_ratings own" on student_note_ratings for all using (auth.uid() = user_id) with check (auth.uid() = user_id);

@@ -5,7 +5,15 @@ import { SignOutButton } from "@/components/sign-out-button";
 import { DashboardProfile } from "@/components/dashboard-profile";
 import { DashboardAddresses } from "@/components/dashboard-addresses";
 import { DashboardBookmarks } from "@/components/dashboard-bookmarks";
-import { getProfile, listAddresses, listBookmarks } from "@/app/actions/dashboard";
+import { DashboardNotifications } from "@/components/dashboard-notifications";
+import { DashboardNotesUpload } from "@/components/dashboard-notes-upload";
+import {
+  getProfile,
+  listAddresses,
+  listBookmarks,
+  getNotifications,
+  listMyNotes
+} from "@/app/actions/dashboard";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -16,7 +24,37 @@ export default async function DashboardPage() {
     redirect("/auth?next=/dashboard");
   }
 
-  const [profile, addresses, bookmarks] = await Promise.all([getProfile(), listAddresses(), listBookmarks()]);
+  const [profile, addresses, bookmarks, notifications, myNotes] = await Promise.all([
+    getProfile(),
+    listAddresses(),
+    listBookmarks(),
+    getNotifications(),
+    listMyNotes()
+  ]);
+
+  const resolvedProfile =
+    profile ?? {
+      fullName: "",
+      phone: "",
+      country: "",
+      city: "",
+      avatarUrl: "",
+      profileType: "student" as const,
+      university: "",
+      course: "",
+      branch: "",
+      semester: "",
+      company: "",
+      role: "",
+      experience: "",
+      interests: "",
+      orgName: "",
+      gstNumber: "",
+      shippingContact: "",
+      institution: "",
+      subjectTaught: "",
+      designation: ""
+    };
 
   return (
     <div className="min-h-screen">
@@ -28,7 +66,7 @@ export default async function DashboardPage() {
 
         <div className="grid gap-6 md:grid-cols-2">
           {/* LEFT: Profile */}
-          <DashboardProfile email={user.email ?? ""} profile={profile ?? { fullName: "", phone: "", university: "", branch: "", academicStatus: "" }} />
+          <DashboardProfile email={user.email ?? ""} profile={resolvedProfile} />
 
           {/* RIGHT: Orders + Addresses */}
           <div className="flex flex-col gap-6">
@@ -49,6 +87,18 @@ export default async function DashboardPage() {
             <DashboardAddresses addresses={addresses} />
           </div>
         </div>
+
+        {/* NOTIFICATIONS — full width, between the top split and saved content */}
+        <div className="mt-6">
+          <DashboardNotifications notifications={notifications} />
+        </div>
+
+        {/* Student-only: upload your own notes to share */}
+        {resolvedProfile.profileType === "student" && (
+          <div className="mt-6">
+            <DashboardNotesUpload notes={myNotes} />
+          </div>
+        )}
 
         {/* BOTTOM: Bookmarks */}
         <section className="pk-glass mt-6 rounded-3xl p-8">

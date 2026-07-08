@@ -744,7 +744,7 @@ export async function listFaqQuestions() {
 
   const { data } = await supabase
     .from("faq_questions")
-    .select("id, name, email, question, status, created_at")
+    .select("id, name, email, question, status, user_id, answer, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
 
@@ -828,5 +828,106 @@ export async function deleteTestimonial(formData: FormData): Promise<void> {
 
   await supabase.from("testimonials").delete().eq("id", id);
   revalidatePath("/");
+  revalidatePath("/admin-katta");
+}
+
+// ---------------------------------------------------------------------------
+// Notifications: answer a user's FAQ question (delivers a notification to
+// them if they were logged in when they asked), and push broadcast ads.
+// ---------------------------------------------------------------------------
+
+export async function answerFaqQuestion(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const id = read(formData, "id");
+  const answer = read(formData, "answer");
+
+  if (!id || !answer) {
+    return fail("Write an answer first.");
+  }
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return fail("Database isn't configured.");
+
+  const { data: question, error: fetchError } = await supabase
+    .from("faq_questions")
+    .select("id, question, user_id")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (fetchError || !question) {
+    return fail("Couldn't find that question.");
+  }
+
+  const { error } = await supabase.from("faq_questions").update({ answer, status: "answered" }).eq("id", id);
+  if (error) return fail(error.message);
+
+  if (question.user_id) {
+    await supabase.from("notifications").insert({
+      user_id: question.user_id,
+      type: "faq_answer",
+      title: "We answered your question",
+      body: `Q: ${question.question}\n\nA: ${answer}`,
+      link_url: "/#faq"
+    });
+  }
+
+  revalidatePath("/admin-katta");
+  return ok(question.user_id ? "Answer saved and sent to the student." : "Answer saved (question was asked anonymously, no notification sent).");
+}
+
+export async function pushAdvertisement(_previous: CommandState, formData: FormData): Promise<CommandState> {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
+  const title = read(formData, "title");
+  const body = read(formData, "body");
+
+  if (!title || !body) {
+    return fail("Title and message are both required.");
+  }
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return fail("Database isn't configured.");
+
+  const { error } = await supabase.from("notifications").insert({
+    user_id: null, // broadcast — every logged-in user sees this
+    type: "advertisement",
+    title,
+    body,
+    link_url: read(formData, "link_url") || null
+  });
+
+  if (error) return fail(error.message);
+
+  revalidatePath("/admin-katta");
+  return ok("Announcement sent to all users.");
+}
+
+export async function listNotifications() {
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return [];
+
+  const { data } = await supabase
+    .from("notifications")
+    .select("id, user_id, type, title, body, link_url, created_at")
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  return data ?? [];
+}
+
+export async function deleteNotification(formData: FormData): Promise<void> {
+  const authError = await requireAdmin();
+  if (authError) return;
+
+  const id = read(formData, "id");
+  if (!id) return;
+
+  const supabase = createSupabaseAdminClient();
+  if (!supabase) return;
+
+  await supabase.from("notifications").delete().eq("id", id);
   revalidatePath("/admin-katta");
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { createSupabaseAdminClient } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/supabase-server";
 
 export type FaqSubmitState = {
   status: "idle" | "success" | "error";
@@ -32,10 +33,16 @@ export async function submitFaqQuestion(
     };
   }
 
+  // If they're logged in, tie the question to their account so the answer
+  // can reach them as a notification. Anonymous questions still work fine —
+  // they just won't get a notification back since there's no account to notify.
+  const user = await getCurrentUser();
+
   const { error } = await supabase.from("faq_questions").insert({
     question,
     name: name || null,
-    email: email || null
+    email: email || null,
+    user_id: user?.id ?? null
   });
 
   if (error) {

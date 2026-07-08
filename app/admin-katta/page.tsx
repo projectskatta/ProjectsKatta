@@ -13,6 +13,7 @@ import {
   listEducationResources, 
   listFaqQuestions,
   listTestimonials,
+  listNotifications,
   deleteProject, 
   deleteStoreKit, 
   deleteGame, 
@@ -33,6 +34,7 @@ export default async function AdminKattaPage() {
   const educationResources = await listEducationResources();
   const faqQuestions = await listFaqQuestions();
   const testimonials = await listTestimonials();
+  const notifications = await listNotifications();
 
   return (
     <div className="min-h-screen pb-16">
@@ -99,7 +101,7 @@ export default async function AdminKattaPage() {
           </div>
           {/* Tu yahan Games aur Education ka bhi same block add kar sakta hai agar zaroorat pade */}
           <ManageStoreKits kits={storeKits} />
-          <ManageHomepageContent questions={faqQuestions} testimonials={testimonials} />
+          <ManageHomepageContent questions={faqQuestions} testimonials={testimonials} notifications={notifications} />
         </div>
       </div>
     </div>
