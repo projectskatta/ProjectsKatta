@@ -402,3 +402,39 @@ drop policy if exists "student_note_ratings select all" on student_note_ratings;
 drop policy if exists "student_note_ratings own" on student_note_ratings;
 create policy "student_note_ratings select all" on student_note_ratings for select using (true);
 create policy "student_note_ratings own" on student_note_ratings for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- ---------------------------------------------------------------------------
+-- Profile richness: give every profile type a comparable depth of fields,
+-- not just Student.
+-- ---------------------------------------------------------------------------
+alter table profiles add column if not exists enrollment_id text; -- student, optional
+alter table profiles add column if not exists industry text; -- professional
+alter table profiles add column if not exists portfolio_link text; -- professional / hobbyist
+alter table profiles add column if not exists experience_level text; -- hobbyist
+alter table profiles add column if not exists tools_used text; -- hobbyist
+alter table profiles add column if not exists org_type text; -- organization
+alter table profiles add column if not exists website text; -- organization
+alter table profiles add column if not exists years_teaching text; -- teacher
+alter table profiles add column if not exists department text; -- teacher
+
+-- ---------------------------------------------------------------------------
+-- Notifications: expand into proper categories with icons on the frontend.
+-- ---------------------------------------------------------------------------
+alter table notifications drop constraint if exists notifications_type_check;
+alter table notifications add constraint notifications_type_check
+  check (type in ('order', 'shipping', 'reply', 'announcement', 'education', 'projects', 'store', 'rating', 'like', 'community'));
+
+-- Lightweight two-way thread: lets a user reply to a notification (e.g. reply
+-- to an admin's FAQ answer). Admin sees these the same place as FAQ questions.
+create table if not exists notification_replies (
+  id uuid primary key default gen_random_uuid(),
+  notification_id uuid references notifications(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  message text not null,
+  created_at timestamp with time zone default now()
+);
+
+alter table notification_replies enable row level security;
+drop policy if exists "notification_replies own" on notification_replies;
+create policy "notification_replies own" on notification_replies
+  for all using (auth.uid() = user_id) with check (auth.uid() = user_id);

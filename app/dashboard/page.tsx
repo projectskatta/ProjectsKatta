@@ -5,7 +5,7 @@ import { SignOutButton } from "@/components/sign-out-button";
 import { DashboardProfile } from "@/components/dashboard-profile";
 import { DashboardAddresses } from "@/components/dashboard-addresses";
 import { DashboardBookmarks } from "@/components/dashboard-bookmarks";
-import { DashboardNotifications } from "@/components/dashboard-notifications";
+import { NotificationBell } from "@/components/notification-bell";
 import { DashboardNotesUpload } from "@/components/dashboard-notes-upload";
 import {
   getProfile,
@@ -44,16 +44,25 @@ export default async function DashboardPage() {
       course: "",
       branch: "",
       semester: "",
+      enrollmentId: "",
       company: "",
       role: "",
       experience: "",
+      industry: "",
+      portfolioLink: "",
       interests: "",
+      experienceLevel: "",
+      toolsUsed: "",
       orgName: "",
       gstNumber: "",
       shippingContact: "",
+      orgType: "",
+      website: "",
       institution: "",
       subjectTaught: "",
-      designation: ""
+      designation: "",
+      yearsTeaching: "",
+      department: ""
     };
 
   return (
@@ -70,6 +79,10 @@ export default async function DashboardPage() {
 
           {/* RIGHT: Orders + Addresses */}
           <div className="flex flex-col gap-6">
+            <div className="flex justify-end">
+              <NotificationBell notifications={notifications} />
+            </div>
+
             <div className="pk-glass flex-1 rounded-3xl p-6">
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-lg font-black text-zinc-950">Your Orders</h3>
@@ -86,11 +99,6 @@ export default async function DashboardPage() {
 
             <DashboardAddresses addresses={addresses} />
           </div>
-        </div>
-
-        {/* NOTIFICATIONS — full width, between the top split and saved content */}
-        <div className="mt-6">
-          <DashboardNotifications notifications={notifications} />
         </div>
 
         {/* Student-only: upload your own notes to share */}

@@ -56,20 +56,29 @@ export type Profile = {
   course: string;
   branch: string;
   semester: string;
+  enrollmentId: string;
   // professional
   company: string;
   role: string;
   experience: string;
+  industry: string;
+  portfolioLink: string;
   // hobbyist
   interests: string;
+  experienceLevel: string;
+  toolsUsed: string;
   // organization
   orgName: string;
   gstNumber: string;
   shippingContact: string;
+  orgType: string;
+  website: string;
   // teacher
   institution: string;
   subjectTaught: string;
   designation: string;
+  yearsTeaching: string;
+  department: string;
 };
 
 const emptyProfile: Profile = {
@@ -83,16 +92,25 @@ const emptyProfile: Profile = {
   course: "",
   branch: "",
   semester: "",
+  enrollmentId: "",
   company: "",
   role: "",
   experience: "",
+  industry: "",
+  portfolioLink: "",
   interests: "",
+  experienceLevel: "",
+  toolsUsed: "",
   orgName: "",
   gstNumber: "",
   shippingContact: "",
+  orgType: "",
+  website: "",
   institution: "",
   subjectTaught: "",
-  designation: ""
+  designation: "",
+  yearsTeaching: "",
+  department: ""
 };
 
 export async function getProfile(): Promise<Profile | null> {
@@ -105,7 +123,7 @@ export async function getProfile(): Promise<Profile | null> {
   const { data } = await supabase
     .from("profiles")
     .select(
-      "full_name, phone, country, city, avatar_url, profile_type, university, course, branch, semester, company, role, experience, interests, org_name, gst_number, shipping_contact, institution, subject_taught, designation"
+      "full_name, phone, country, city, avatar_url, profile_type, university, course, branch, semester, enrollment_id, company, role, experience, industry, portfolio_link, interests, experience_level, tools_used, org_name, gst_number, shipping_contact, org_type, website, institution, subject_taught, designation, years_teaching, department"
     )
     .eq("id", user.id)
     .maybeSingle();
@@ -123,16 +141,25 @@ export async function getProfile(): Promise<Profile | null> {
     course: data.course ?? "",
     branch: data.branch ?? "",
     semester: data.semester ?? "",
+    enrollmentId: data.enrollment_id ?? "",
     company: data.company ?? "",
     role: data.role ?? "",
     experience: data.experience ?? "",
+    industry: data.industry ?? "",
+    portfolioLink: data.portfolio_link ?? "",
     interests: data.interests ?? "",
+    experienceLevel: data.experience_level ?? "",
+    toolsUsed: data.tools_used ?? "",
     orgName: data.org_name ?? "",
     gstNumber: data.gst_number ?? "",
     shippingContact: data.shipping_contact ?? "",
+    orgType: data.org_type ?? "",
+    website: data.website ?? "",
     institution: data.institution ?? "",
     subjectTaught: data.subject_taught ?? "",
-    designation: data.designation ?? ""
+    designation: data.designation ?? "",
+    yearsTeaching: data.years_teaching ?? "",
+    department: data.department ?? ""
   };
 }
 
@@ -154,16 +181,25 @@ export async function updateProfile(_previous: DashboardState, formData: FormDat
     course: read(formData, "course") || null,
     branch: read(formData, "branch") || null,
     semester: read(formData, "semester") || null,
+    enrollment_id: read(formData, "enrollment_id") || null,
     company: read(formData, "company") || null,
     role: read(formData, "role") || null,
     experience: read(formData, "experience") || null,
+    industry: read(formData, "industry") || null,
+    portfolio_link: read(formData, "portfolio_link") || null,
     interests: read(formData, "interests") || null,
+    experience_level: read(formData, "experience_level") || null,
+    tools_used: read(formData, "tools_used") || null,
     org_name: read(formData, "org_name") || null,
     gst_number: read(formData, "gst_number") || null,
     shipping_contact: read(formData, "shipping_contact") || null,
+    org_type: read(formData, "org_type") || null,
+    website: read(formData, "website") || null,
     institution: read(formData, "institution") || null,
     subject_taught: read(formData, "subject_taught") || null,
     designation: read(formData, "designation") || null,
+    years_teaching: read(formData, "years_teaching") || null,
+    department: read(formData, "department") || null,
     updated_at: new Date().toISOString()
   });
 
@@ -357,7 +393,7 @@ export async function deleteBookmark(formData: FormData): Promise<void> {
 
 export type NotificationItem = {
   id: string;
-  type: "order" | "advertisement" | "faq_answer";
+  type: "order" | "shipping" | "reply" | "announcement" | "education" | "projects" | "store" | "rating" | "like" | "community";
   title: string;
   body: string;
   linkUrl: string | null;
@@ -498,4 +534,27 @@ export async function deleteStudentNote(formData: FormData): Promise<void> {
 
   await supabase.from("student_notes").delete().eq("id", id).eq("user_id", user.id);
   revalidatePath("/dashboard");
+}
+
+export async function replyToNotification(_previous: DashboardState, formData: FormData): Promise<DashboardState> {
+  const user = await getCurrentUser();
+  if (!user) return { status: "error", message: "You need to be signed in." };
+
+  const notificationId = read(formData, "notification_id");
+  const message = read(formData, "message");
+
+  if (!message) return { status: "error", message: "Type a message first." };
+
+  const supabase = await createSupabaseAuthServerClient();
+  if (!supabase) return { status: "error", message: "Database isn't configured." };
+
+  const { error } = await supabase.from("notification_replies").insert({
+    notification_id: notificationId || null,
+    user_id: user.id,
+    message
+  });
+
+  if (error) return { status: "error", message: error.message };
+
+  return { status: "success", message: "Reply sent." };
 }

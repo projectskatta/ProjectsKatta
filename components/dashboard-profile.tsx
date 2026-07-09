@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useActionState, useState } from "react";
-import { useFormStatus } from "react-dom";
 import { Pencil, Trash2, Upload, X } from "lucide-react";
 import {
   deleteAvatar,
@@ -23,8 +22,7 @@ const profileTypeLabels: Record<ProfileType, string> = {
   teacher: "Teacher"
 };
 
-function SaveButton({ label }: { label: string }) {
-  const { pending } = useFormStatus();
+function SaveButton({ label, pending }: { label: string; pending: boolean }) {
   return (
     <button
       type="submit"
@@ -107,6 +105,7 @@ function TypeFields({ type, profile }: { type: ProfileType; profile: Profile }) 
         <Field label="Course" name="course" defaultValue={profile.course} placeholder="e.g. B.E. / Diploma" />
         <Field label="Branch" name="branch" defaultValue={profile.branch} placeholder="e.g. E&TC Engineering" />
         <Field label="Semester" name="semester" defaultValue={profile.semester} placeholder="e.g. Semester 5" />
+        <Field label="Enrollment / Roll No." name="enrollment_id" defaultValue={profile.enrollmentId} placeholder="Optional" />
       </div>
     );
   }
@@ -117,20 +116,27 @@ function TypeFields({ type, profile }: { type: ProfileType; profile: Profile }) 
         <Field label="Company" name="company" defaultValue={profile.company} placeholder="e.g. Motion Robotics" span />
         <Field label="Role" name="role" defaultValue={profile.role} placeholder="e.g. Embedded Systems Engineer" />
         <Field label="Experience" name="experience" defaultValue={profile.experience} placeholder="e.g. 3 years" />
+        <Field label="Industry" name="industry" defaultValue={profile.industry} placeholder="e.g. Robotics, IoT" />
+        <Field label="Portfolio / LinkedIn" name="portfolio_link" defaultValue={profile.portfolioLink} placeholder="https://..." />
       </div>
     );
   }
 
   if (type === "hobbyist") {
     return (
-      <Field
-        label="Primary Interests"
-        name="interests"
-        defaultValue={profile.interests}
-        placeholder="e.g. Robotics, IoT, AI, Embedded, 3D Printing"
-        span
-        textarea
-      />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field
+          label="Primary Interests"
+          name="interests"
+          defaultValue={profile.interests}
+          placeholder="e.g. Robotics, IoT, AI, Embedded, 3D Printing"
+          span
+          textarea
+        />
+        <Field label="Experience Level" name="experience_level" defaultValue={profile.experienceLevel} placeholder="Beginner / Intermediate / Advanced" />
+        <Field label="Tools You Use" name="tools_used" defaultValue={profile.toolsUsed} placeholder="e.g. Arduino, ESP32, Raspberry Pi" />
+        <Field label="Portfolio / YouTube / Instagram" name="portfolio_link" defaultValue={profile.portfolioLink} placeholder="https://..." span />
+      </div>
     );
   }
 
@@ -138,6 +144,8 @@ function TypeFields({ type, profile }: { type: ProfileType; profile: Profile }) 
     return (
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Organization Name" name="org_name" defaultValue={profile.orgName} placeholder="e.g. XYZ Polytechnic" span />
+        <Field label="Organization Type" name="org_type" defaultValue={profile.orgType} placeholder="College / Company / Lab / Reseller" />
+        <Field label="Website" name="website" defaultValue={profile.website} placeholder="https://..." />
         <Field label="GST Number" name="gst_number" defaultValue={profile.gstNumber} placeholder="Optional" />
         <Field label="Shipping Contact" name="shipping_contact" defaultValue={profile.shippingContact} placeholder="Name & phone for deliveries" />
       </div>
@@ -149,6 +157,8 @@ function TypeFields({ type, profile }: { type: ProfileType; profile: Profile }) 
       <Field label="Institution" name="institution" defaultValue={profile.institution} placeholder="e.g. Government Polytechnic" span />
       <Field label="Subject Taught" name="subject_taught" defaultValue={profile.subjectTaught} placeholder="e.g. Digital Electronics" />
       <Field label="Designation" name="designation" defaultValue={profile.designation} placeholder="e.g. Lecturer, HOD" />
+      <Field label="Department" name="department" defaultValue={profile.department} placeholder="e.g. E&TC Department" />
+      <Field label="Years Teaching" name="years_teaching" defaultValue={profile.yearsTeaching} placeholder="e.g. 8 years" />
     </div>
   );
 }
@@ -194,7 +204,18 @@ function Field({
 export function DashboardProfile({ email, profile }: { email: string; profile: Profile }) {
   const [editing, setEditing] = useState(false);
   const [selectedType, setSelectedType] = useState<ProfileType>(profile.profileType);
-  const [state, formAction] = useActionState(updateProfile, initialState);
+  const [saving, setSaving] = useState(false);
+  const [state, setState] = useState<DashboardState>(initialState);
+
+  async function handleSubmit(formData: FormData) {
+    setSaving(true);
+    const result = await updateProfile(initialState, formData);
+    setSaving(false);
+    setState(result);
+    if (result.status === "success") {
+      setEditing(false);
+    }
+  }
 
   if (editing) {
     return (
@@ -214,7 +235,7 @@ export function DashboardProfile({ email, profile }: { email: string; profile: P
           <AvatarEditor avatarUrl={profile.avatarUrl} name={profile.fullName} email={email} />
         </div>
 
-        <form action={formAction} className="mt-6 grid gap-4">
+        <form action={handleSubmit} className="mt-6 grid gap-4">
           <p className="text-xs font-black uppercase tracking-wide text-zinc-500">Basic Profile</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Name" name="full_name" defaultValue={profile.fullName} />
@@ -250,7 +271,7 @@ export function DashboardProfile({ email, profile }: { email: string; profile: P
             <p className={`text-xs font-bold ${state.status === "error" ? "text-red-600" : "text-emerald-700"}`}>
               {state.message}
             </p>
-            <SaveButton label="Save Changes" />
+            <SaveButton label="Save Changes" pending={saving} />
           </div>
         </form>
       </section>
@@ -303,12 +324,20 @@ export function DashboardProfile({ email, profile }: { email: string; profile: P
               <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.university || "Not added yet"}</p>
             </div>
             <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Course</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.course || "Not added yet"}</p>
+            </div>
+            <div>
               <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Branch</p>
               <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.branch || "Not added yet"}</p>
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Semester</p>
               <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.semester || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Enrollment / Roll No.</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.enrollmentId || "Not added yet"}</p>
             </div>
           </>
         )}
@@ -323,28 +352,90 @@ export function DashboardProfile({ email, profile }: { email: string; profile: P
               <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Role</p>
               <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.role || "Not added yet"}</p>
             </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Experience</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.experience || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Industry</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.industry || "Not added yet"}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Portfolio / LinkedIn</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.portfolioLink || "Not added yet"}</p>
+            </div>
           </>
         )}
 
         {profile.profileType === "hobbyist" && (
-          <div className="sm:col-span-2">
-            <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Interests</p>
-            <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.interests || "Not added yet"}</p>
-          </div>
+          <>
+            <div className="sm:col-span-2">
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Primary Interests</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.interests || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Experience Level</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.experienceLevel || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Tools Used</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.toolsUsed || "Not added yet"}</p>
+            </div>
+            <div className="sm:col-span-2">
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Portfolio</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.portfolioLink || "Not added yet"}</p>
+            </div>
+          </>
         )}
 
         {profile.profileType === "organization" && (
-          <div className="sm:col-span-2">
-            <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Organization</p>
-            <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.orgName || "Not added yet"}</p>
-          </div>
+          <>
+            <div className="sm:col-span-2">
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Organization</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.orgName || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Type</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.orgType || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Website</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.website || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">GST Number</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.gstNumber || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Shipping Contact</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.shippingContact || "Not added yet"}</p>
+            </div>
+          </>
         )}
 
         {profile.profileType === "teacher" && (
-          <div className="sm:col-span-2">
-            <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Institution</p>
-            <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.institution || "Not added yet"}</p>
-          </div>
+          <>
+            <div className="sm:col-span-2">
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Institution</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.institution || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Subject Taught</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.subjectTaught || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Designation</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.designation || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Department</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.department || "Not added yet"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-zinc-400">Years Teaching</p>
+              <p className="mt-0.5 text-sm font-semibold text-zinc-700">{profile.yearsTeaching || "Not added yet"}</p>
+            </div>
+          </>
         )}
       </div>
     </section>

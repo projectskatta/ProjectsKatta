@@ -215,9 +215,15 @@ function PushAdvertisementForm() {
         rows={2}
         className="rounded-md border border-zinc-200 bg-white px-2 py-1.5 text-xs font-bold"
       />
+      <select name="category" defaultValue="announcement" className="h-9 rounded-md border border-zinc-200 bg-white px-2 text-xs font-bold">
+        <option value="announcement">📢 Announcement</option>
+        <option value="store">🛒 Store (e.g. new kit launch)</option>
+        <option value="education">🎓 Education</option>
+        <option value="projects">🤖 Projects</option>
+      </select>
       <input
         name="link_url"
-        placeholder="Link (optional), e.g. /store"
+        placeholder="Link (optional), e.g. /store/some-kit"
         className="h-9 rounded-md border border-zinc-200 bg-white px-2 text-xs font-bold"
       />
       <div className="flex items-center justify-between gap-2 border-t border-zinc-200 pt-2">

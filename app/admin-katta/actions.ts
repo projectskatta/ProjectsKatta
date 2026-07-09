@@ -866,7 +866,7 @@ export async function answerFaqQuestion(_previous: CommandState, formData: FormD
   if (question.user_id) {
     await supabase.from("notifications").insert({
       user_id: question.user_id,
-      type: "faq_answer",
+      type: "reply",
       title: "We answered your question",
       body: `Q: ${question.question}\n\nA: ${answer}`,
       link_url: "/#faq"
@@ -883,6 +883,7 @@ export async function pushAdvertisement(_previous: CommandState, formData: FormD
 
   const title = read(formData, "title");
   const body = read(formData, "body");
+  const category = read(formData, "category") || "announcement";
 
   if (!title || !body) {
     return fail("Title and message are both required.");
@@ -893,7 +894,7 @@ export async function pushAdvertisement(_previous: CommandState, formData: FormD
 
   const { error } = await supabase.from("notifications").insert({
     user_id: null, // broadcast — every logged-in user sees this
-    type: "advertisement",
+    type: category,
     title,
     body,
     link_url: read(formData, "link_url") || null
