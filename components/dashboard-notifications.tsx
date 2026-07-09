@@ -1,12 +1,34 @@
 "use client";
 
-import { Bell, Megaphone, MessageCircleQuestion, Package } from "lucide-react";
+import {
+  Bell,
+  Megaphone,
+  MessageCircle,
+  MessageCircleQuestion,
+  Package,
+  Truck,
+  GraduationCap,
+  Rocket,
+  ShoppingBag,
+  Star,
+  Heart,
+  Users,
+} from "lucide-react";
 import { markNotificationRead, type NotificationItem } from "@/app/actions/dashboard";
 
 const iconByType = {
   order: Package,
+  shipping: Truck,
+  reply: MessageCircle,
+  announcement: Megaphone,
+  education: GraduationCap,
+  projects: Rocket,
+  store: ShoppingBag,
+  rating: Star,
+  like: Heart,
+  community: Users,
   advertisement: Megaphone,
-  faq_answer: MessageCircleQuestion
+  faq_answer: MessageCircle,
 };
 
 export function DashboardNotifications({ notifications }: { notifications: NotificationItem[] }) {
