@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import {
   BookOpenText,
@@ -32,6 +33,76 @@ export type NavItem = {
 
 export function NavbarClient({ navItems, userEmail }: { navItems: NavItem[]; userEmail: string | null }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client-mount detection so the portal only renders after hydration
+    setMounted(true);
+  }, []);
+
+  // Locks background scroll while the mobile menu is open.
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  const mobileMenu = open && (
+    <div className="fixed inset-0 z-[100] lg:hidden">
+      <div className="absolute inset-0 bg-zinc-950/40" onClick={() => setOpen(false)} />
+      <div className="pk-glass absolute left-1/2 top-4 w-[92%] -translate-x-1/2 rounded-3xl p-5">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-black uppercase tracking-wide text-zinc-500">Menu</p>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-zinc-950"
+            aria-label="Close menu"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+
+        <div className="mt-4 grid gap-1.5">
+          {navItems.map((item) => {
+            const Icon = iconByName[item.icon];
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold text-zinc-700 transition hover:bg-white"
+              >
+                <Icon className="h-5 w-5" aria-hidden="true" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mt-4 border-t border-zinc-200 pt-4">
+          {userEmail ? (
+            <div className="flex items-center justify-between gap-3">
+              <span className="truncate text-sm font-bold text-zinc-700">{userEmail}</span>
+              <SignOutButton />
+            </div>
+          ) : (
+            <Link
+              href="/auth"
+              onClick={() => setOpen(false)}
+              className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-zinc-950 text-sm font-black text-white"
+            >
+              <LogIn className="h-4 w-4" aria-hidden="true" />
+              Login
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -79,60 +150,12 @@ export function NavbarClient({ navItems, userEmail }: { navItems: NavItem[]; use
         <Menu className="h-5 w-5" aria-hidden="true" />
       </button>
 
-      {/* Mobile slide-down menu */}
-      {open && (
-        <div className="fixed inset-0 z-[60] lg:hidden">
-          <div className="absolute inset-0 bg-zinc-950/40" onClick={() => setOpen(false)} />
-          <div className="pk-glass absolute left-1/2 top-4 w-[92%] -translate-x-1/2 rounded-3xl p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-black uppercase tracking-wide text-zinc-500">Menu</p>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-zinc-950"
-                aria-label="Close menu"
-              >
-                <X className="h-4 w-4" aria-hidden="true" />
-              </button>
-            </div>
-
-            <div className="mt-4 grid gap-1.5">
-              {navItems.map((item) => {
-                const Icon = iconByName[item.icon];
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold text-zinc-700 transition hover:bg-white"
-                  >
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="mt-4 border-t border-zinc-200 pt-4">
-              {userEmail ? (
-                <div className="flex items-center justify-between gap-3">
-                  <span className="truncate text-sm font-bold text-zinc-700">{userEmail}</span>
-                  <SignOutButton />
-                </div>
-              ) : (
-                <Link
-                  href="/auth"
-                  onClick={() => setOpen(false)}
-                  className="flex h-11 items-center justify-center gap-2 rounded-2xl bg-zinc-950 text-sm font-black text-white"
-                >
-                  <LogIn className="h-4 w-4" aria-hidden="true" />
-                  Login
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Rendered via portal directly on document.body — the navbar header
+          uses backdrop-blur, which makes it a "containing block" for any
+          position:fixed descendant. Without the portal, this menu would get
+          trapped and clipped inside the thin header strip instead of
+          covering the full screen. */}
+      {mounted && mobileMenu ? createPortal(mobileMenu, document.body) : null}
     </>
   );
 }
